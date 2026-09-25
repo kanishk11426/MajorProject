@@ -14,6 +14,7 @@ const ExpressError = require('./ExpressError');
 // });
 
 console.log("Checking is done and everything seems fine.");
+console.log("From my personal system");
     
 app.use("/random", (req, res, next) => {
     req.time = new Date(Date.now());
