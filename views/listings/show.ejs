@@ -64,16 +64,31 @@
           <div class="col-8 offset-3 mb-3">
             <hr />
             <h4>Leave a review</h4>
-            <form action="" class="form-card"> 
+            <form action="/listings/<%= listing.id %>/reviews" method="POST" class="form-card"> 
 
                 <div class="field mb-3 mt-3">
                     <label for="rating" class="form-label">Rating</label>
-                    <input type="range" name="review[rating]" id="rating" min="1" max="5" class="form-range">
+                    <input 
+                      type="range" 
+                      name="review[rating]" 
+                      id="rating" 
+                      min="1" 
+                      max="5" 
+                      class="form-range"
+                    >
                 </div>
 
                 <div class="field mb-3 mt-3">
                     <label for="comment" class="form-label">Your Review</label>
-                    <textarea name="review[comment]" id="comment" cols="30" rows="5" placeholder="Share your experience..."></textarea>
+                    <textarea 
+                      name="review[comment]" 
+                      id="comment" 
+                      cols="30" 
+                      rows="5" 
+                      placeholder="Share your experience..."
+                      required
+                    >
+                    </textarea>
                 </div>
 
                 <div class="form-actions">

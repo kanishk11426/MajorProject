@@ -8,6 +8,7 @@ const ejsMate=require('ejs-mate');
 const wrapAsync=require('./utils/wrapAsync.js')
 const ExpressError=require('./utils/ExpressError.js');
 const {listingSchema}=require('./schema.js');
+const Review = require("./models/review.js")
 
 async function main(){
     await mongoose.connect('mongodb://localhost:27017/wanderlust');
@@ -95,12 +96,34 @@ app.put("/listings/:id",
 }));
 
 //Delete route
-app.delete("/listings/:id",wrapAsync(async(req,res)=>{
-    let {id}=req.params;
-    let deletedListing=await Listing.findByIdAndDelete(id);
-    console.log(deletedListing);
-    res.redirect("/listings");
-}));
+app.delete(
+    "/listings/:id",
+    wrapAsync(async(req,res)=>{
+        let {id}=req.params;
+        let deletedListing=await Listing.findByIdAndDelete(id);
+        console.log(deletedListing);
+        res.redirect("/listings");
+    })
+);
+
+// Reviews
+app.post(
+    "/listings/:id/reviews",
+    wrapAsync(async(req, res) => {
+        console.log(req.body);
+        let listing = await Listing.findById(req.params.id);
+        let newReview = new Review(req.body.review);
+
+        listing.reviews.push(newReview);
+
+        await newReview.save();
+        await listing.save();
+
+        // res.redirect(`/listings/${listing._id}`)
+        console.log(req.body);
+        res.redirect(`/listings/${listing._id}`)
+    })
+);
 
 // app.get('/testListings',async(req,res)=>{
 //     let sampleListing=new Listing({
