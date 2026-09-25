@@ -1,0 +1,55 @@
+<% layout("layouts/boilerplate") %>
+    <div class="form-shell">
+      <div class="form-card">
+        <header class="form-header">
+          <p class="eyebrow">Update details</p>
+          <h1>Edit listing</h1>
+          <p>Keep your home fresh, accurate, and ready for guests.</p>
+        </header>
+
+        <form action="/listings/<%= listing._id %>?_method=PUT" method="POST" novalidate class="needs-validation">
+          <div class="form-grid">
+            <div class="field full">
+              <label for="title">Title</label>
+              <input type="text" name="listing[title]" id="title" value="<%= listing.title %>" required />
+              <div class="invalid-feedback">Please enter a title.</div>
+            </div>
+
+            <div class="field full">
+              <label for="description">Description</label>
+              <textarea name="listing[description]" id="description"><%= listing.description %></textarea>
+              <div class="invalid-feedback">Please enter a description.</div>
+            </div>
+
+            <div class="field full">
+              <label for="image">Image URL</label>
+              <input type="text" name="listing[image]" id="image" value="<%= listing.image %>" />
+            </div>
+
+            <div class="field">
+              <label for="price">Price</label>
+              <input type="number" name="listing[price]" id="price" value="<%= listing.price %>" min="1" required />
+              <div class="invalid-feedback">Please enter a price greater than 0.</div>
+            </div>
+
+            <div class="field">
+              <label for="location">Location</label>
+              <input type="text" name="listing[location]" id="location" value="<%= listing.location %>" required />
+              <div class="invalid-feedback">Please enter a location.</div>
+            </div>
+
+            <div class="field full">
+              <label for="country">Country</label>
+              <input type="text" name="listing[country]" id="country" value="<%= listing.country %>" required />
+              <div class="invalid-feedback">Please enter a country.</div>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <a class="secondary-btn" href="/listings/<%= listing._id %>">Cancel</a>
+            <button class="submit-btn" type="submit">Save changes</button>
+          </div>
+        </form>
+      </div>
+    </div>
+

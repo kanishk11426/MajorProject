@@ -1,0 +1,71 @@
+<% layout("layouts/boilerplate") %>
+    <nav class="navbar">
+      <div class="nav-inner">
+        <a class="brand" href="/listings"><span class="brand-mark">air</span>bnb</a>
+
+        <div class="nav-search" aria-label="Search destinations">
+          <span>Anywhere</span>
+          <span>Any week</span>
+          <span>Add guests</span>
+          <button class="search-button" type="button">⌕</button>
+        </div>
+
+        <div class="nav-actions">
+          <a href="/listings/new" class="host-link">Become a host</a>
+          <button class="icon-button" type="button" aria-label="Menu">☰</button>
+        </div>
+      </div>
+    </nav>
+
+    <main class="listings-shell">
+      <div class="page-header">
+        <div>
+          <p class="eyebrow">Handpicked stays</p>
+          <h1>Find your next escape</h1>
+        </div>
+        <a href="/listings/new" class="primary-btn">List your place</a>
+      </div>
+
+      <div class="filters">
+        <span class="chip active">Beachfront</span>
+        <span class="chip">Cabins</span>
+        <span class="chip">City views</span>
+        <span class="chip">Countryside</span>
+        <span class="chip">Tiny homes</span>
+      </div>
+
+      <section class="listings-grid">
+        <% for (let listing of allListings) { %>
+          <article class="listing-card">
+            <a href="/listings/<%= listing._id %>">
+              <img class="listing-image" src="<%= listing.image %>" alt="<%= listing.title %>" />
+            </a>
+
+            <div class="listing-body">
+              <div class="listing-topline">
+                <h2 class="listing-title"><%= listing.title %></h2>
+                <span class="rating">★ 4.9</span>
+              </div>
+
+              <div class="listing-meta">
+                <span><%= listing.location %>, <%= listing.country %></span>
+              </div>
+
+              <p class="listing-description"><%= listing.description %></p>
+
+              <div class="listing-footer">
+                <div class="price">$<%= listing.price %><small> / night</small></div>
+
+                <div class="listing-actions">
+                  <a class="secondary-btn" href="/listings/<%= listing._id %>">View</a>
+                  <a class="secondary-btn" href="/listings/<%= listing._id %>/edit">Edit</a>
+                  <form action="/listings/<%= listing._id %>?_method=DELETE" method="POST">
+                    <button class="danger-btn" type="submit">Delete</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </article>
+        <% } %>
+      </section>
+    </main>

@@ -1,0 +1,97 @@
+<% layout("layouts/boilerplate") %>
+    <nav class="navbar">
+      <div class="nav-inner">
+        <a class="brand" href="/listings"><span class="brand-mark">air</span>bnb</a>
+        <div class="nav-search" aria-label="Search destinations">
+          <span>Anywhere</span>
+          <span>Any week</span>
+          <span>Add guests</span>
+          <button class="search-button" type="button">⌕</button>
+        </div>
+        <div class="nav-actions">
+          <a href="/listings/new" class="host-link">Become a host</a>
+          <button class="icon-button" type="button" aria-label="Menu">☰</button>
+        </div>
+      </div>
+    </nav>
+
+    <main class="show-shell">
+      <header class="show-header">
+        <p class="eyebrow">Entire villa · Superhost</p>
+        <h1><%= listing.title %></h1>
+        <div class="show-meta">
+          <span>★ 4.9</span>
+          <span>·</span>
+          <span><%= listing.location %>, <%= listing.country %></span>
+        </div>
+      </header>
+
+      <img class="show-hero" src="<%= listing.image %>" alt="<%= listing.title %>" />
+
+      <div class="show-grid">
+        <section class="show-info">
+          <div class="show-summary">
+            <h2>Stay in the heart of <%= listing.location %></h2>
+          </div>
+
+          <div class="badge-row">
+            <span class="badge">4 guests</span>
+            <span class="badge">2 bedrooms</span>
+            <span class="badge">2 baths</span>
+            <span class="badge">Free Wi‑Fi</span>
+          </div>
+
+          <p class="show-description"><%= listing.description %></p>
+
+          <div class="section-divider"></div>
+
+          <div class="price-card">
+            <div>
+              <strong>$<%= listing.price %></strong>
+              <span> / night</span>
+            </div>
+            <span>Includes cleaning fee</span>
+          </div>
+
+          <div class="show-actions">
+            <a class="primary-btn" href="/listings">Back to listings</a>
+            <a class="secondary-btn" href="/listings/<%= listing._id %>/edit">Edit</a>
+            <form action="/listings/<%= listing._id %>?_method=DELETE" method="POST">
+              <button class="danger-btn" type="submit">Delete</button>
+            </form>
+          </div>
+            
+          <div class="col-8 offset-3 mb-3">
+            <hr />
+            <h4>Leave a review</h4>
+            <form action="" class="form-card"> 
+
+                <div class="field mb-3 mt-3">
+                    <label for="rating" class="form-label">Rating</label>
+                    <input type="range" name="review[rating]" id="rating" min="1" max="5" class="form-range">
+                </div>
+
+                <div class="field mb-3 mt-3">
+                    <label for="comment" class="form-label">Your Review</label>
+                    <textarea name="review[comment]" id="comment" cols="30" rows="5" placeholder="Share your experience..."></textarea>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-outline-dark">Submit</button>
+                </div>
+
+            </form>
+          </div> 
+        </section>
+
+        <aside class="host-card">
+          <h3>Hosted by Wanderlust</h3>
+          <p>Enjoy a thoughtfully designed stay with premium amenities, flexible check-in, and a local host that makes every visit memorable.</p>
+          <div class="badge-row">
+            <span class="badge">Superhost</span>
+            <span class="badge">Response rate 96%</span>
+          </div>
+          <a href="/listings" class="primary-btn">Reserve now</a>
+        </aside>
+      </div>
+    </main>
