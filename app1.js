@@ -13,6 +13,8 @@ const ExpressError = require('./ExpressError');
 //     next();
 // });
 
+console.log("Checking is done and everything seems fine.");
+    
 app.use("/random", (req, res, next) => {
     req.time = new Date(Date.now());
     console.log(req.method, req.path, req.hostname, req.time);
