@@ -13,7 +13,7 @@ const ExpressError = require('./ExpressError');
 //     next();
 // });
 
-console.log("Checking is done and everything seems fine.");
+console.log("Checking is done and everything seems FINE.");
 console.log("From my -------------------->>>>>------------------personal system");
     
 app.use("/random", (req, res, next) => {
