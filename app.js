@@ -164,7 +164,6 @@ app.use( (err,req,res,next)=>{
     if (err.name === "ValidationError" || err.name === "CastError") {
         statusCode = 400;
     }
-    // res.status(statusCode).send(message);
     res.status(statusCode).render("listings/error.ejs", { err });
 });
 
