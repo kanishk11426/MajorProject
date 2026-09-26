@@ -44,7 +44,7 @@ const listingSchema = new Schema({
 
   country: {
     type: String,
-    required: true,
+    // required: true,
     trim: true,
   },
 
