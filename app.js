@@ -113,7 +113,6 @@ app.delete(
     wrapAsync(async(req,res)=>{
         let {id}=req.params;
         let deletedListing=await Listing.findByIdAndDelete(id);
-        console.log(deletedListing);
         res.redirect("/listings");
     })
 );
@@ -140,7 +139,17 @@ app.post(
 );
 
 // Delete Review Route
-app.delete("/listing/:id/reviews/:reviewId", )
+app.delete(
+    "/listings/:id/reviews/:reviewId",
+    wrapAsync(async (req, res) => {
+        let { id, reviewId } = req.params;
+
+        await Listing.findByIdAndUpdate(id, { $pull: {reviews: reviewId }})
+        await Review.findByIdAndDelete(reviewId);
+        
+        res.redirect(`/listings/${id}`)
+    }) 
+);
 
 // app.get('/testListings',async(req,res)=>{
 //     let sampleListing=new Listing({
@@ -167,6 +176,6 @@ app.use( (err,req,res,next)=>{
     res.status(statusCode).render("listings/error.ejs", { err });
 });
 
-app.listen(3000,()=>{
+app.listen(3000,() => {
     console.log('Server is running on port 3000');
 });
