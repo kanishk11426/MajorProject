@@ -31,8 +31,14 @@
   </head>
 
   <body>
+    <%- include("../includes/header") %>
 
-    <%- body %>
+    <div class="page-content">
+      <%- include("../includes/flash.ejs") %>
+      <%- body %>
+    </div>
+
+    <%- include("../includes/footer") %>
 
     <!-- Bootstrap JS -->
     <script
