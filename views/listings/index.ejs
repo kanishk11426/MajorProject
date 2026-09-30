@@ -1,5 +1,4 @@
 <% layout("layouts/boilerplate") %>
-<%= success %>
 
     <main class="listings-shell">
       <div class="page-header">
@@ -38,7 +37,7 @@
               <p class="listing-description"><%= listing.description %></p>
 
               <div class="listing-footer">
-                <div class="price">$<%= listing.price %><small> / night</small></div>
+                <div class="price">&#x20B9;<%= listing.price %><small> / night</small></div>
 
                 <div class="listing-actions">
                   <a class="secondary-btn" href="/listings/<%= listing._id %>">View</a>

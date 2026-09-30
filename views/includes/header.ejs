@@ -5,6 +5,18 @@
     <nav class="nav-actions" aria-label="Main navigation">
       <a class="host-link" href="/listings">Explore stays</a>
       <a class="host-link" href="/listings/new">List your place</a>
+      <br> <br>
+      <div class="ms-auto">
+        <% if (!currUser) { %>
+          <a class="host-link" href="/signup">Sign up</a>
+          <a class="host-link" href="/login">Login</a>
+        <% } %>
+
+        <% if (currUser) { %>
+          <a class="host-link" href="/logout">Log out</a>
+        <% } %>
+      </div>
     </nav>
+
   </div>
 </header>
