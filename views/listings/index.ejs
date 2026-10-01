@@ -21,7 +21,7 @@
         <% for (let listing of allListings) { %>
           <article class="listing-card">
             <a href="/listings/<%= listing._id %>">
-              <img class="listing-image" src="<%= listing.image %>" alt="<%= listing.title %>" />
+              <img class="listing-image" src="<%= listing.image.url %>" alt="<%= listing.title %>" />
             </a>
 
             <div class="listing-body listing-card">
