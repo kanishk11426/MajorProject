@@ -24,6 +24,13 @@
         >
         </blockquote>
 
+        <blockquote
+          class="instagram-media"
+          data-instgrm-permalink="https://www.instagram.com/p/DYBRQ3ojUWk/?hl=en&img_index=5"
+          data-instgrm-version="14"
+        >
+        </blockquote>
+
         <script async src="https://www.instagram.com/embed.js"></script>
 
         <h2>Stay in the heart of <%= listing.location %></h2>
@@ -52,29 +59,37 @@
           <a class="primary-btn" href="/listings">Back to listings</a>
 
           <% if (currUser && currUser._id.equals(listing.owner._id)) { %>
-            <a class="secondary-btn" href="/listings/<%= listing._id %>/edit">Edit</a>
-            <form action="/listings/<%= listing._id %>?_method=DELETE" method="POST">
-              <button class="danger-btn" type="submit">Delete</button>
-            </form>
+          <a class="secondary-btn" href="/listings/<%= listing._id %>/edit">Edit</a>
+          <form action="/listings/<%= listing._id %>?_method=DELETE" method="POST">
+            <button class="danger-btn" type="submit">Delete</button>
+          </form>
           <% } %>
+
+          
         </div>
-            
+          
         <div class="col-8 offset-3 mb-3">
           <hr/>
+          <% if (currUser) { %>
           <h4>Leave a review</h4>
           <form action="/listings/<%= listing.id %>/reviews" method="POST" class="form-card"> 
 
-            <div class="field mb-3 mt-3">
-              <label for="rating" class="form-label">Rating</label>
-              <input
-                type="range"
-                name="review[rating]"
-                id="rating"
-                min="1"
-                max="5"
-                class="form-range"
-              >
-            </div>
+          <div class="field mb-3 mt-3">
+            <label for="rating" class="form-label">Rating</label>
+            <fieldset class="starability-slot">
+              <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="0" checked aria-label="No rating."/>
+              <input type="radio" id="first-rate1" name="review[rating]" value="1"/>
+              <label for="first-rate1" title="Terrible">1 star</label>
+              <input type="radio" id="first-rate2" name="review[rating]" value="2"/>
+              <label for="first-rate2" title="Not good">2 stars</label>
+              <input type="radio" id="first-rate3" name="review[rating]" value="3"/>
+              <label for="first-rate3" title="Average">3 stars</label>
+              <input type="radio" id="first-rate4" name="review[rating]" value="4"/>
+              <label for="first-rate4" title="Very good">4 stars</label>
+              <input type="radio" id="first-rate5" name="review[rating]" value="5"/>
+              <label for="first-rate5" title="Amazing">5 stars</label>
+            </fieldset>
+          </div>
 
             <div class="field mb-3 mt-3">
               <label for="comment" class="form-label">Your Review</label>
@@ -94,7 +109,7 @@
             </div>
 
           </form>
-            
+          <% } %>
           <hr/>
 
           <p><b>All Reviews</b></p>
@@ -102,15 +117,14 @@
             <% for (review of listing.reviews) { %> 
             <div class="card col-5 ms-3 mb-3">
               <div class="card-body">
-                <h5 class="card-title">John Doe</h5>
+                <h5 class="card-title">@ <%= review.author.username %></h5>
+                <p class="starability-result card-text" data-rating="<%= review.rating  %>"></p>
                 <p class="card-text"><%= review.comment  %></p>
-                <p class="card-text"><%= review.rating  %> stars</p>
               </div>
               <form
                 action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE"
                 method="POST"
                 class="mb-3"
-                target="_blank"
               >
                 <button class="btn btn-sm btn-dark">Delete</button>
               </form>

@@ -13,8 +13,10 @@
         <% } %>
 
         <% if (currUser) { %>
+          <span class="user-welcome">👋 Welcome, <strong><%= currUser.username.charAt(0).toUpperCase() + currUser.username.slice(1) %>.</strong></span>
           <a class="host-link" href="/logout">Log out</a>
         <% } %>
+
       </div>
     </nav>
 
