@@ -1,54 +1,199 @@
-<% layout("layouts/boilerplate") %>
+<% layout("layouts/boilerplate")  %>
 
-    <main class="listings-shell">
-      <div class="page-header">
-        <div>
-          <p class="eyebrow">Handpicked stays</p>
-          <h1>Find your next escape</h1>
+<main class="listings-shell">
+  <div class="page-header">
+    <div>
+      <p class="eyebrow">Handpicked stays</p>
+      <h1>Find your next escape</h1>
+    </div>
+    <a href="/listings/new" class="primary-btn">List your place</a>
+  </div>
+
+  <style>
+    #filters {
+      margin-top: 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .filter {
+      text-align: center;
+      margin-right: 2rem;
+      margin-top: 2 rem;
+      opacity: 0.65;
+    }
+    .filter p {
+      font-size: 0.8rem;
+    }
+
+    .filter:hover {
+      opacity: 1;
+      cursor: pointer;
+    }
+
+    .tax-info {
+      display: none;
+    }
+
+    .tax-toggle {
+      border: 1px solid black;
+      border-radius: 1rem;
+      height: 2.25rem;
+      padding: 0.5rem;
+      margin-left: 2rem;
+      display: flex;
+      align-items: center;
+    }
+  </style>
+
+  <div id="filters">
+    <div class="filter">
+      <div><i class="fa-solid fa-fire"></i></div>
+      <p>Trending</p>
+    </div>
+    <div class="filter">
+      <div><i class="fa-solid fa-bed"></i></div>
+      <p>Rooms</p>
+    </div>
+    <div class="filter">
+      <div><i class="fa-solid fa-mountain-city"></i></div>
+      <p>Iconic Cities</p>
+    </div>
+    <div class="filter">
+      <div><i class="fa-solid fa-mountain"></i></div>
+      <p>Mountains</p>
+    </div>
+    <div class="filter">
+      <div><i class="fa-brands fa-fort-awesome"></i></div>
+      <p>Castles</p>
+    </div>
+    <div class="filter">
+      <div><i class="fa-solid fa-person-swimming"></i></div>
+      <p>Amazing Pools</p>
+    </div>
+    <div class="filter">
+      <div><i class="fa-solid fa-campground"></i></div>
+      <p>Camping</p>
+    </div>
+    <div class="filter">
+      <div><i class="fa-solid fa-cow"></i></div>
+      <p>Farms</p>
+    </div>
+    <div class="filter">
+      <div><i class="fa-regular fa-snowflake"></i></div>
+      <p>Arctic</p>
+    </div>
+    <div class="filter">
+      <div><i class="fa-solid fa-igloo"></i></div>
+      <p>Domes</p>
+    </div>
+    <div class="filter">
+      <div><i class="fa-solid fa-sailboat"></i></div>
+      <p>Boats</p>
+    </div>
+
+    <div class="tax-toggle">
+      <div class="form-check-reverse form-switch">
+        <input
+          class="form-check-input"
+          type="checkbox"
+          role="switch"
+          id="switchCheckDefault"
+        />
+        <label class="form-check-label" for="switchCheckDefault">Display total after taxes</label>
+      </div>
+    </div>
+  </div>
+
+  <section class="listings-grid mt-3">
+   
+    <% for (let listing of allListings) { %>
+    <article class="listing-card" style="min-width: 0; overflow: hidden;">
+
+      <a href="/listings/<%= listing._id %>">
+        <img
+          class="listing-image"
+          src="<%= listing.image.url %>"
+          alt="<%= listing.title %>"
+        />
+      </a>
+
+      <div class="listing-body">
+        <div class="listing-topline">
+          <h2 class="listing-title"><%= listing.title %></h2>
+          <span class="rating">★ 4.9</span>
         </div>
-        <a href="/listings/new" class="primary-btn">List your place</a>
+
+        <div class="listing-meta">
+          <span><%= listing.location %>, <%= listing.country %></span>
+        </div>
+
+        <p class="listing-description"><%= listing.description %></p>
+
+        <div
+          class="listing-footer"
+          style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px;"
+        >
+
+          <div class="price" style="white-space: nowrap;">
+            <strong>&#x20B9;<%= listing.price %> <small>/ night</small></strong>
+            <i class="tax-info">+18% GST</i>
+          </div>
+
+          <div
+            class="listing-actions"
+            style="display: flex; flex: 1 1 220px; flex-wrap: wrap; justify-content: flex-end; gap: 8px; min-width: 0;"
+          >
+
+            <a
+              class="secondary-btn"
+              style="flex: 1 1 55px; min-width: 0; text-align: center;"
+              href="/listings/<%= listing._id %>"
+            >View</a>
+
+            <a
+              class="secondary-btn"
+              style="flex: 1 1 55px; min-width: 0; text-align: center;"
+              href="/listings/<%= listing._id %>/edit"
+            >Edit</a>
+
+            <form
+              action="/listings/<%= listing._id %>?_method=DELETE"
+              method="POST"
+              style="flex: 1 1 65px; min-width: 0; margin: 0;"
+              onsubmit="return confirm('Are you sure you want to delete this listing?');"
+            >
+
+              <button
+                class="danger-btn"
+                type="submit"
+                style="width: 100%; box-sizing: border-box; white-space: normal;"
+              >
+                Delete
+              </button>
+            </form>
+
+          </div>
+        </div>
       </div>
+    </article>
+    <% } %>
 
-      <div class="filters">
-        <span class="chip active">Beachfront</span>
-        <span class="chip">Cabins</span>
-        <span class="chip">City views</span>
-        <span class="chip">Countryside</span>
-        <span class="chip">Tiny homes</span>
-      </div>
+  </section>
+</main>
 
-      <section class="listings-grid">
-        <% for (let listing of allListings) { %>
-          <article class="listing-card">
-            <a href="/listings/<%= listing._id %>">
-              <img class="listing-image" src="<%= listing.image.url %>" alt="<%= listing.title %>" />
-            </a>
-
-            <div class="listing-body listing-card">
-              <div class="listing-topline">
-                <h2 class="listing-title"><%= listing.title %></h2>
-                <span class="rating">★ 4.9</span>
-              </div>
-
-              <div class="listing-meta">
-                <span><%= listing.location %>, <%= listing.country %></span>
-              </div>
-
-              <p class="listing-description"><%= listing.description %></p>
-
-              <div class="listing-footer">
-                <div class="price">&#x20B9;<%= listing.price %><small> / night</small></div>
-
-                <div class="listing-actions">
-                  <a class="secondary-btn" href="/listings/<%= listing._id %>">View</a>
-                  <a class="secondary-btn" href="/listings/<%= listing._id %>/edit">Edit</a>
-                  <form action="/listings/<%= listing._id %>?_method=DELETE" method="POST">
-                    <button class="danger-btn" type="submit">Delete</button>
-                  </form>
-                </div>
-              </div>
-            </div>
-          </article>
-        <% } %>
-      </section>
-    </main>
+<script>
+  let taxSwitch = document.getElementById("switchCheckDefault");
+  taxSwitch.addEventListener("click", () => {
+    let taxInfo = document.getElementsByClassName("tax-info");
+    console.log(taxInfo);
+    for (info of taxInfo) {
+      if (info.style.display != "inline") {
+        info.style.display = "inline";
+      } else {
+        info.style.display = "none";
+      }
+    }
+  });
+</script>

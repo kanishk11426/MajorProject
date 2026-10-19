@@ -7,7 +7,13 @@
             <p>Share the kind of place guests will love.</p>
         </header>
 
-        <form action="/listings" method="POST" novalidate class="needs-validation">
+        <form
+            action="/listings"
+            method="POST"
+            novalidate
+            class="needs-validation"
+            enctype="multipart/form-data"
+        >
             <div class="form-grid">
                 <div class="field full">
                     <label for="title">Title</label>
@@ -32,15 +38,15 @@
                         </textarea>
                     <div class="invalid-feedback">Please enter a description.</div>
                 </div>
-
+                
                 <div class="field full">
-                    <label for="image">Image URL</label>
+                    <label for="image">Upload Listing Image</label>
                     <input
-                        type="text"
+                        type="file"
                         name="listing[image]"
                         id="image"
-                        placeholder="https://example.com/your-home.jpg"
                     />
+                    required
                 </div>
 
                 <div class="field">

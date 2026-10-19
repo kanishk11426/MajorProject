@@ -1,3 +1,7 @@
+if (process.env.NODE_ENV !== "production") {
+    require("dotenv").config();
+}
+
 const express=require('express');
 const app=express();
 const mongoose=require('mongoose');
@@ -15,8 +19,12 @@ const listingRouter = require("./routes/listing.js");
 const reviewRouter = require("./routes/review.js");
 const userRouter = require("./routes/user.js")
 
+// const MONGO_URL = "mongodb://localhost:27017/wanderlust";
+const MONGO_URL = process.env.MONGODB_URI;
+
 async function main(){
-    await mongoose.connect('mongodb://localhost:27017/wanderlust');
+    await mongoose.connect(MONGO_URL);
+    console.log(MONGO_URL)
 }
 
 app.set('view engine','ejs');
@@ -44,9 +52,9 @@ main().then(()=>{
     console.log(err);
 });
 
-app.get('/',(req,res)=>{
-    res.send('Hi, I am root');
-});
+// app.get('/',(req,res)=>{
+//     res.send('Hi, I am root');
+// });
 
 app.use(session(sessionOptions));
 app.use(flash()); 

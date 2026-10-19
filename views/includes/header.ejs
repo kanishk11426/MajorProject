@@ -1,20 +1,64 @@
+<style>
+  .search-btn {
+    background-color: var(--airbnb-red);
+    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    gap: 0.5rem;
+    border-radius: 25px;
+    padding: 0 1 rem 0 1rem;
+  }
+
+  .btn-search:hover {
+    background-color: var(--airbnb-red);
+    color: #fff;
+  }
+
+  .search-btn i {
+    display: inline;
+    margin-right: 0.5rem;
+  }
+  
+  .search-inp {
+    border-radius: 25px;
+    padding: 0.5rem 3rem 0.5rem 3rem;
+    font-size: 1rem;
+  }
+</style>
+
 <header class="navbar">
   <div class="nav-inner">
     <a class="brand" href="/listings" aria-label="Wanderlust home">Wanderlust</a>
 
     <nav class="nav-actions" aria-label="Main navigation">
       <a class="host-link" href="/listings">Explore stays</a>
-      <a class="host-link" href="/listings/new">List your place</a>
+      <div class="navbar-nav ms-auto">
+        <form class="d-flex" role="search" action="/listings" method="GET">
+          <input
+            class="form-control me-2 search-inp"
+            type="search"
+            name="q"
+            placeholder="Search destinations..."
+            aria-label="Search"
+          />
+          <button class="btn search-btn" type="submit">
+            <i class="fa-solid fa-magnifying-glass"></i>Search 
+          </button>
+        </form>
+      </div>
+      <a class="host-link" href="/listings/new">Airbnb your home</a>
       <br> <br>
       <div class="ms-auto">
         <% if (!currUser) { %>
-          <a class="host-link" href="/signup">Sign up</a>
-          <a class="host-link" href="/login">Login</a>
+        <a class="host-link" href="/signup"><b>Sign up</b></a>
+        <a class="host-link" href="/login"><b>Login</b></a>
         <% } %>
 
         <% if (currUser) { %>
-          <span class="user-welcome">👋 Welcome, <strong><%= currUser.username.charAt(0).toUpperCase() + currUser.username.slice(1) %>.</strong></span>
-          <a class="host-link" href="/logout">Log out</a>
+        <span class="user-welcome">👋 Welcome, <strong><%= currUser.username.charAt(0).toUpperCase() + currUser.username.slice(1) %>.</strong></span>
+        <a class="host-link" href="/logout">Log out</a>
         <% } %>
 
       </div>
